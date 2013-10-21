@@ -22,6 +22,7 @@
 # a patch to the cygwin mailing list.
 
 # User dependent .bashrc file
+# echo "Reading .bashrc..."
 
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
@@ -198,7 +199,7 @@ alias ls='ls -hF --color=auto'                 # classify files in colour
 # alias cd=cd_func
 
 # Add user's binary directory
-PATH="~/usr/bin:${PATH}"
+export PATH="/home/${USER}/usr/bin:${PATH}"
 
 # Set up dircolors
 eval `dircolors ~/.dircolors`
@@ -232,12 +233,16 @@ acropath=$(
 # alias ls='ls --color'
 alias acrobat='cyg-wrapper.sh "$(echo $acropath)"'
 alias gvim='cyg-wrapper.sh "$USBDRV/PortableApps/gVimPortable/gvimPortable.exe" --fork=2 --binary-opt=--cmd,"set shellslash",--cmd,"set shell=bash",--cmd,"set ff=unix"'
-alias subl='cyg-wrapper.sh "$USBDRV/PortableApps/SublimeText2Portable/sublime_text.exe" --fork=2'
+alias st='cyg-wrapper.sh "$USBDRV/PortableApps/SublimeTextPortable/sublime_text.exe" --fork=2'
+alias newterm='mintty /bin/env CHERE_INVOKING=1 /bin/bash -l &'
 alias gtypist='gtypist -wi'
 alias explorer='cyg-wrapper.sh "explorer" --slashed-opt'
 alias startxwin='run /usr/bin/bash.exe -l -c "/usr/bin/startxwin -- -nolock -unixkill"'
 alias sumatra='startSumatra.sh'
 alias lynx='lynx -use_mouse'
+alias md='cyg-wrapper.sh "$USBDRV/PortableApps/MarkdownWinPortable/MarkdownWin.exe" --fork=2'
+alias units='rlwrap units'
+alias multivalent='java -cp $(cygpath -m $CYGROOT)/home/${USER}/usr/lib/Multivalent20060102.jar'
 
 # Set a default prompt of: user@host and current_directory
 PS1='\[\e]0;\w\a\]\n\[\e[36m\]\u@\h: \[\e[33m\]\w\[\e[0m\]\n\$ '

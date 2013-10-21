@@ -16,6 +16,7 @@
 # setup from updating it.
 
 # System-wide profile file
+# echo "Reading /etc/.profile..."
 
 # Some resources...
 # Customizing Your Shell: http://www.dsl.org/cookbook/cookbook_5.html#SEC69
@@ -35,15 +36,19 @@ INFOPATH="/usr/local/info:/usr/share/info:/usr/info:${INFOPATH}"
 # See also paths for TeXLive below
 
 # Set the user id
+# echo "    Setting user id..."
 USER="$(id -un)"
 #HOME=/home/ntmoe
 
 # Translate $USBDRV to a Unix path
+# echo "    Setting up PATHs..."
+# echo "        Setting Cygwin path shortcuts..."
 USBDRVPATH=/cygdrive/$(echo $USBDRV | sed s/://g | tr "[:upper:]" "[:lower:]")
 patternToMatch="s/"$USBDRV"\///"
 CYGROOT=$USBDRVPATH/$(cygpath -m $CYGROOT | sed $patternToMatch | awk -F "" '{ for (i = 1; i < NF; i++) printf "%s", $i }')
 
 # Add TeXLive paths
+# echo "        Setting TeXLive paths..."
 PATH="${USBDRVPATH}/texlive/bin/win32:${PATH}"
 MANPATH="${USBDRVPATH}/texlive/texmf/doc/man:${MANPATH}"
 INFO="${USBDRVPATH}/texlive/texmf/doc/info:${INFOPATH}"
@@ -53,6 +58,7 @@ INFO="${USBDRVPATH}/texlive/texmf/doc/info:${INFOPATH}"
 # them set to the default Windows temporary directory or unset
 # can have unexpected consequences for cygwin apps, so we define 
 # our own to match GNU/Linux behaviour.
+# echo "        Setting Temp directories..."
 ORIGINAL_TMP=$TMP
 ORIGINAL_TEMP=$TEMP
 unset TMP TEMP
@@ -62,6 +68,7 @@ TMP="/tmp"
 TEMP="/tmp"
 
 # Define default printer
+# echo "    Defining default printer..."
 p='/proc/registry/HKEY_CURRENT_USER/Software/Microsoft/Windows NT/CurrentVersion/Windows/Device'
 if [ -e "${p}" ] ; then
   read -r PRINTER < "${p}" 
@@ -72,6 +79,7 @@ unset p
 # Default to removing the write permission for group and other
 #  (files normally created with mode 777 become 755; files created with
 #  mode 666 become 644)
+# echo "    Setting umask..."
 umask 022
 
 # Here is how HOME is set, in order of priority, when starting from Windows
@@ -80,6 +88,7 @@ umask 022
 #  3) from HOMEDRIVE/HOMEPATH
 #  4) / (root)
 # If the home directory doesn't exist, create it.
+# echo "    Configuring HOME directory..."
 if [ ! -d "${HOME}" ]; then
   if mkdir -p "${HOME}"; then
     echo "Copying skeleton files."
@@ -113,18 +122,22 @@ else
 fi
 
 # Shell dependent settings
+# echo "    Setting shell-dependent settings..."
 profile_d ()
 {
   for file in $(export LC_COLLATE=C; echo /etc/profile.d/*.$1); do
+    # echo "        Reading ${file}..."
     [ -e "${file}" ] && . "${file}"
   done
   unset file
 }
 
 if [ ! "x${BASH_VERSION}" = "x"  ]; then
+  # echo "    Running bash scripts...."
   HOSTNAME="$(/usr/bin/hostname)"
   profile_d sh
   [ -f "/etc/bash.bashrc" ] && . "/etc/bash.bashrc"
+  # echo "        Done."
 elif [ ! "x${KSH_VERSION}" = "x" ]; then
   typeset -l HOSTNAME="$(/usr/bin/hostname)"
   profile_d sh
@@ -142,6 +155,7 @@ else
   PS1="$ "
 fi
 
+# echo "    Exporting paths..."
 export PATH MANPATH INFOPATH USER TMP TEMP PRINTER HOSTNAME PS1 SHELL tmp temp
 
 # Check to see if mkpasswd/mkgroup needs to be run try and cut down the emails
@@ -165,6 +179,7 @@ export PATH MANPATH INFOPATH USER TMP TEMP PRINTER HOSTNAME PS1 SHELL tmp temp
 #
 # If this message keeps appearing and you are sure it's a mistake (ie, don't
 #   email about it!), comment out the test below.
+# echo "    Verifying gid and uid..."
 case "$(id -ng)" in
 mkpasswd )
   echo "Your group is currently \"mkpasswd\".  This indicates that your"
