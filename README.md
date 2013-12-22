@@ -15,7 +15,7 @@ Let's assume that your USB flash drive is on `E:`.
 3. Download Cygwin and place `setup.exe` in the directory you just created. Rename it to `cygwinConfig.exe` (this allows you to run it without administrator privileges).
 
 4. Install Cygwin.
-	- Set the root directory to `E:\PortableApps\CygwinPortable`. 
+	- Set the root directory to `E:\PortableApps\CygwinPortable`.
 	- Install for "Just me".
 	- Set the local package directory to `E:\PortableApps\CygwinPortable\packages`.
 	- Besides the defaults, install `git`, `vim`, `source-highlight` and the entire `X11` category.
@@ -29,7 +29,7 @@ Let's assume that your USB flash drive is on `E:`.
 		$ git pull origin master
 
 6. Link the portable-ized configuration files (and some handy scripts that I use) to their proper locations:
-			
+
 		$ cd ~
 		$ rm .bashrc .minttyrc /etc/profile
 		$ ln -s /Other/bashrc ~/.bashrc
@@ -43,4 +43,9 @@ Let's assume that your USB flash drive is on `E:`.
 	- Cygwin Setup
 	- Cygwin Terminal
 	- Start XWin Server
+
+8. If you want to set your USERNAME:
+
+  - Go to App/CygwinPortable
+  - Change line 23 in CygwinTerminal.bat and XWinServer.bat to your username.
 
