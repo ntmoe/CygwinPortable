@@ -245,4 +245,4 @@ alias units='rlwrap units'
 alias multivalent='java -cp $(cygpath -m $CYGROOT)/home/${USER}/usr/lib/Multivalent20060102.jar'
 
 # Set a default prompt of: user@host and current_directory
-PS1='\[\e]0;\w\a\]\n\[\e[36m\]\u@\h: \[\e[33m\]\w\[\e[0m\]\n\$ '
+PS1='\n\[\e[36m\]\u@\h: \[\e[33m\]\w\[\e[0m\]\n\$ '
