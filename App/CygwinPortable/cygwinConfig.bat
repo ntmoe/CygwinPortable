@@ -12,5 +12,5 @@ rem USBDRV will be something like E:
 SET CYGROOT=%cd%
 SET USBDRV=%~d0
 
-start %CYGROOT%\cygwinConfig.exe -R %CYGROOT% -l %CYGROOT%\packages -K http://cygwinports.org/ports.gpg -n
+start %CYGROOT%\cygwinConfig.exe -B -R %CYGROOT% -l %CYGROOT%\packages -K http://cygwinports.org/ports.gpg -n
 rem cd App\CygwinPortable
