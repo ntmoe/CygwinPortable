@@ -21,7 +21,7 @@ set CYGWIN=nodosfilewarning
 
 rem This specifies the login to use.
 set USERNAME=ntmoe
-set HOME=/home/%USERNAME%
+set HOME=%USBDRV%
 
 rem Make sure /etc/passwd and /etc/group are set up for us
 %CYGROOT%bin\bash /Other/user_setup.sh
