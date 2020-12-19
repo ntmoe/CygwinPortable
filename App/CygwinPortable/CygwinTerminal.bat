@@ -21,7 +21,7 @@ set CYGWIN=nodosfilewarning
 
 rem This specifies the login to use.
 set USERNAME=ntmoe
-set HOME=/home/%USERNAME%
+set HOME=%USBDRV%
 
 rem Make sure /etc/passwd and /etc/group are set up for us
 %CYGROOT%bin\bash /Other/user_setup.sh
@@ -29,4 +29,4 @@ rem Make sure /etc/passwd and /etc/group are set up for us
 rem Start a terminal emulator
 rem (this uses the --config switch to find .minttyrc in case I'm using
 rem  my CygwinPortable from another user account)
-start /b %CYGROOT%bin\mintty --config /home/%USERNAME%/.minttyrc -i /Cygwin-Terminal.ico -
+start /b %CYGROOT%bin\mintty --config %HOME%/.minttyrc -i /Cygwin-Terminal.ico -
